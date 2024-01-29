@@ -21,6 +21,10 @@ jobs:
             echo "$line" >> $GITHUB_ENV
           done
 
+      - name: Display Environment Variables
+        run: |
+          cat $GITHUB_ENV
+          
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
