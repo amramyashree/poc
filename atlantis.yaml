@@ -1,0 +1,7 @@
+repo_allowlist:
+  - amramyashree/poc
+  # Add more repositories as needed
+
+github:
+  user: amramyashree
+  token: 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
