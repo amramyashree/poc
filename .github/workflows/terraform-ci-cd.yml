@@ -30,18 +30,20 @@ jobs:
         with:
           terraform_version: 1.1.0
 
+      - name: Install TFLint
+        run: |
+          wget https://github.com/terraform-linters/tflint/releases/download/v0.30.0/tflint_linux_amd64.zip
+          unzip tflint_linux_amd64.zip
+          sudo mv tflint /usr/local/bin/
+
       - name: Terraform Init
         run: terraform init
-
-      # Add Checkov and TFLint steps below
 
       - name: Run TFLint
         run: tflint
 
       - name: Run Checkov
         run: checkov --directory .
-
-      # End of Checkov and TFLint steps
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
