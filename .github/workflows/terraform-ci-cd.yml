@@ -33,6 +33,16 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      # Add Checkov and TFLint steps below
+
+      - name: Run TFLint
+        run: tflint
+
+      - name: Run Checkov
+        run: checkov --directory .
+
+      # End of Checkov and TFLint steps
+
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
