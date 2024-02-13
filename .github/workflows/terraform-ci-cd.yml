@@ -36,9 +36,9 @@ jobs:
           unzip tflint_linux_amd64.zip
           sudo mv tflint /usr/local/bin/
 
-      # - name: Install Checkov
-      #   run: |
-      #     pip install checkov
+      - name: Install Checkov
+        run: |
+          pip install checkov
 
       - name: Terraform Init
         run: terraform init
@@ -46,8 +46,8 @@ jobs:
       - name: Run TFLint
         run: tflint
 
-      # - name: Run Checkov
-      #   run: checkov --directory .
+      - name: Run Checkov
+        run: checkov --directory .
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
