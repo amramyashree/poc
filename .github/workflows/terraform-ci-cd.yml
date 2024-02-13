@@ -43,4 +43,14 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      -
+      - name: Run TFLint
+        run: tflint
+
+      - name: Run Checkov
+        run: checkov --directory .
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
