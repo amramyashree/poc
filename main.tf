@@ -2,7 +2,7 @@ provider "aws" {
   region = "ap-south-1"  # Change this to your desired region
 }
 
-resource "aws_iam_role" "example_role" {
+resource "aws_iam_role" "example_role1" {
   name               = "example-role"
   assume_role_policy = jsonencode({
     Version   = "2012-10-17"
@@ -18,7 +18,7 @@ resource "aws_iam_role" "example_role" {
 
 resource "aws_iam_instance_profile" "example_instance_profile1" {
   name = "example-instance-profile"
-  role = aws_iam_role.example_role.name
+  role = aws_iam_role.example_role1.name
 }
 
 resource "aws_instance" "example" {
