@@ -17,11 +17,11 @@ resource "aws_iam_role" "example_role" {
 }
 
 resource "aws_iam_instance_profile" "example_instance_profile" {
-  name = "example-instance-profile-newname"
+  name = "example-instance-profile-newname1"
   role = aws_iam_role.example_role.name
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "my-instance" {
   ami                    = "ami-03caf91bb3d81b843"
   instance_type          = "t2.micro"
   ebs_optimized          = true
