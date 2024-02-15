@@ -16,7 +16,7 @@ resource "aws_iam_role" "example_role" {
   # Add policies or permissions as needed
 }
 
-resource "aws_iam_instance_profile" "example_instance_profile" {
+resource "aws_iam_instance_profile" "example_instance_profile1" {
   name = "example-instance-profile"
   role = aws_iam_role.example_role.name
 }
@@ -39,6 +39,6 @@ resource "aws_instance" "example" {
   iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
 
   tags = {
-    Name = "ExampleInstance2"
+    Name = "ExampleInstance1"
   }
 }
