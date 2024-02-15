@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-south-1"  # Change this to your desired region
+  region = "ap-southeast-1"  # Change this to your desired region
 }
 
 resource "aws_iam_role" "example_role" {
