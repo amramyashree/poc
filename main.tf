@@ -36,7 +36,7 @@ resource "aws_instance" "example" {
     http_tokens = "required"
   }
 
-  iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
+  iam_instance_profile   = aws_iam_instance_profile.example_instance_profile1.name
 
   tags = {
     Name = "ExampleInstance1"
