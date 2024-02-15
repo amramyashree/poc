@@ -18,7 +18,7 @@ resource "aws_iam_role" "example_role" {
 
 resource "aws_iam_instance_profile" "example_instance_profile" {
   name = "example-instance-profile"
-  role = aws_iam_role.example_role.name  # Reference the correct IAM role name here
+  role = aws_iam_role.example_role.name
 }
 
 resource "aws_instance" "example" {
@@ -30,7 +30,10 @@ resource "aws_instance" "example" {
     encrypted = true
   }
 
-  monitoring             = true
+  metadata_options {
+    http_tokens = "required"
+    http_put_response_hop_limit = 2
+  }
 
   iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
 
