@@ -35,6 +35,8 @@ resource "aws_instance" "example" {
     http_put_response_hop_limit = 2
   }
 
+  monitoring = true
+
   iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
 
   tags = {
