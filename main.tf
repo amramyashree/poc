@@ -17,17 +17,24 @@ resource "aws_iam_role" "example_role" {
 }
 
 resource "aws_iam_instance_profile" "example_instance_profile" {
-  name = "example-instance-profile-new"  # New name for the instance profile
-  role = aws_iam_role.example_role.name
+  name = "example-instance-profile"
+  role = aws_iam_role.example_role.name  # Reference the correct IAM role name here
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-0a7cf821b91bcccbc"
-  instance_type = "t2.micro"
+  ami                    = "ami-0a7cf821b91bcccbc"
+  instance_type          = "t2.micro"
+  ebs_optimized          = true
+
+  root_block_device {
+    encrypted = true
+  }
+
+  monitoring             = true
+
+  iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
 
   tags = {
     Name = "ExampleInstance1"
   }
 }
-
-
