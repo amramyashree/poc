@@ -23,7 +23,7 @@ resource "aws_iam_instance_profile" "example_instance_profile" {
 
 resource "aws_instance" "example" {
   ami                    = "ami-0a7cf821b91bcccbc"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   ebs_optimized          = true
 
   root_block_device {
