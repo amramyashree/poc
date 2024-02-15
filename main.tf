@@ -16,10 +16,11 @@ resource "aws_iam_role" "example_role" {
   # Add policies or permissions as needed
 }
 
-resource "aws_iam_instance_profile" "example_instance_profile" {
+/*resource "aws_iam_instance_profile" "example_instance_profile" {
   name = "example-instance-profile"
   role = aws_iam_role.example_role.name
 }
+*/
 
 resource "aws_instance" "example" {
   ami                    = "ami-0a7cf821b91bcccbc"
@@ -36,7 +37,7 @@ resource "aws_instance" "example" {
     http_tokens = "required"
   }
 
-  iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
+  #iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
 
   tags = {
     Name = "ExampleInstance1"
