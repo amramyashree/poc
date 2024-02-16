@@ -27,7 +27,7 @@ resource "aws_iam_role" "example_role" {
 }
 
 resource "aws_iam_instance_profile" "example_instance_profile" {
-  name = "example-instance-profile-newname1"
+  name = "example-instance-profile-newname2"
   role = aws_iam_role.example_role.name
 }
 
