@@ -33,28 +33,19 @@ jobs:
         with:
           terraform_version: 1.1.0
 
-      - name: Install TFLint
-        run: |
-          release_url=$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_Linux_x86_64.zip")
-          echo "Release URL: $release_url"
-          if [ -z "$release_url" ]; then
-            echo "Error: Failed to fetch release URL for TFLint."
-            exit 1
-          fi
-          curl -L "$release_url" -o tflint.zip
-          unzip tflint.zip
-          sudo mv tflint /usr/local/bin/
-          rm tflint.zip
-
-      - name: Install Checkov
-        run: |
-          pip install checkov
-
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+
+      # Run tflint to lint Terraform code
+      - name: Run tflint
+        run: tflint
+
+      # Run checkov to scan Terraform code
+      - name: Run checkov
+        run: checkov -d .
 
       # - name: Terraform Destroy
       #   run: terraform destroy -auto-approve 
