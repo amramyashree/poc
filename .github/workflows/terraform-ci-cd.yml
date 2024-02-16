@@ -27,7 +27,7 @@ jobs:
       - name: Display Environment Variables
         run: |
           cat $GITHUB_ENV
-          
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
@@ -36,18 +36,24 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Install tflint
-        run: |
-          wget https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip
-          unzip tflint_linux_amd64.zip
-          sudo mv tflint /usr/local/bin/
-          tflint --version  # Verify tflint installation
-
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      - name: Run tflint
+      - name: Install TFLint
+        run: |
+          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && sudo mv tflint /usr/bin/
+          tflint --version
+
+      - name: Run TFLint
         run: tflint
+
+      - name: Install Checkov
+        run: |
+          pip install checkov
+          checkov --version
+
+      - name: Run Checkov
+        run: checkov -d .
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
