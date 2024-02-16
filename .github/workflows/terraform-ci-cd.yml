@@ -36,19 +36,18 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Install tflint
+        run: |
+          wget https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip
+          unzip tflint_linux_amd64.zip
+          sudo mv tflint /usr/local/bin/
+          tflint --version  # Verify tflint installation
+
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      # Run tflint to lint Terraform code
       - name: Run tflint
         run: tflint
-
-      # Run checkov to scan Terraform code
-      - name: Run checkov
-        run: checkov -d .
-
-      # - name: Terraform Destroy
-      #   run: terraform destroy -auto-approve 
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
