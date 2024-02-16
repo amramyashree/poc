@@ -27,7 +27,7 @@ resource "aws_iam_role" "example_role" {
 }
 
 resource "aws_iam_instance_profile" "example_instance_profile" {
-  name = "example-instance-profile-newname2"
+  name = "example-instance-profile-newname3"
   role = aws_iam_role.example_role.name
 }
 
@@ -43,6 +43,7 @@ resource "aws_instance" "my-instance" {
   metadata_options {
     http_tokens = "required"
     http_put_response_hop_limit = 2
+    http_endpoint = "enabled"
   }
 
   monitoring = true
