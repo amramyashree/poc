@@ -1,12 +1,14 @@
 provider "aws" {
-  region = "ap-south-1"  # Change this to your desired region
+  region = "ap-south-1" // Specify your desired AWS region
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-0a7cf821b91bcccbc"
-  instance_type = "t2.micro"
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "myyyyyyyy-bucket" // Specify your desired bucket name
+  acl    = "private" // Specify the ACL (Access Control List), in this case, private
 
   tags = {
-    Name = "ExampleInstance"
+    Name        = "ExampleBucket"
+    Environment = "Production"
   }
 }
+
