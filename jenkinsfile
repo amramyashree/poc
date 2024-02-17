@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('ONE')
+        AWS_SECRET_ACCESS_KEY = credentials('ONE')
+    }
+    
     stages {
         stage('Checkout Repository') {
             steps {
@@ -9,13 +14,13 @@ pipeline {
         }
         
         stage('Set up AWS credentials') {
-            environment {
-                AWS_CREDENTIALS = credentials('AWS_ACCESS_KEY_ID')
-            }
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_CREDENTIALS')]) {
-                        sh 'echo "$AWS_CREDENTIALS" > $HOME/.aws/credentials'
+                withCredentials([string(credentialsId: 'ONE', variable: 'AWS_ACCESS_KEY_ID'),
+                                 string(credentialsId: 'ONE', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    script {
+                        sh 'echo "[default]" > $HOME/.aws/credentials'
+                        sh 'echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials'
+                        sh 'echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials'
                     }
                 }
             }
