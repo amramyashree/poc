@@ -15,12 +15,13 @@ pipeline {
         
         stage('Set up AWS credentials') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'Creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    script {
-                        sh 'echo "[default]" > $HOME/.aws/credentials'
-                        sh 'echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials'
-                        sh 'echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials'
-                    }
+                script {
+                    // Create directory if it doesn't exist
+                    sh 'mkdir -p $HOME/.aws'
+                    // Create credentials file
+                    sh 'echo "[default]" > $HOME/.aws/credentials'
+                    sh 'echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials'
+                    sh 'echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials'
                 }
             }
         }
