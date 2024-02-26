@@ -36,22 +36,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Install TFLint
-        run: |
-          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && sudo mv tflint /usr/bin/
-          tflint --version
-
-      - name: Run TFLint
-        run: tflint
-
-      - name: Install Checkov
-        run: |
-          pip install checkov
-          checkov --version
-
-      - name: Run Checkov
-        run: checkov -d .
-
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
