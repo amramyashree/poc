@@ -1,5 +1,6 @@
 provider "aws" {
   region = "ap-south-1"  # Change this to your desired region
+#abcdef
 }
 
 resource "aws_instance" "example" {
