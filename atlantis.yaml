@@ -1,7 +1,0 @@
-repo_allowlist:
-  - amramyashree/poc
-  # Add more repositories as needed
-
-github:
-  user: amramyashree
-  token: ${{ secrets.ATLANTIS_SECRETE }}
