@@ -1,10 +1,37 @@
+# version: 3
+# workflows:
+#   - name: default
+#     plan:
+#       steps:
+#         - run: terraform init
+#         - run: terraform plan -out tfplan
+#     apply:
+#       steps:
+#         - run: terraform apply tfplan
+
+
 version: 3
+projects:
+- dir: .
+  name: production
+  workflow: production
+# - dir: .
+#   name: staging
+#   workflow: staging
+  terraform_version: v1.7.4
+  autoplan:
+    enabled: false
+  apply_requirements: [approved]
 workflows:
-  - name: default
-    plan:
-      steps:
-        - run: terraform init
-        - run: terraform plan -out tfplan
-    apply:
-      steps:
-        - run: terraform apply tfplan
+  production:
+   plan:
+     steps:
+     - init
+     - plan:
+         extra_args: ["-var-file", "variable.tf"]
+  # staging:
+  #  plan:
+  #    steps:
+  #    - init
+  #    - plan:
+  #        extra_args: ["-var-file", "stag.tfvars"]
