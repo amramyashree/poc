@@ -1,57 +1,57 @@
-pipeline {
-    agent any
+// pipeline {
+//     agent any
     
-    environment {
-        AWS_ACCESS_KEY_ID = credentials('Creds')
-        AWS_SECRET_ACCESS_KEY = credentials('Creds')
-    }
+//     environment {
+//         AWS_ACCESS_KEY_ID = credentials('Creds')
+//         AWS_SECRET_ACCESS_KEY = credentials('Creds')
+//     }
     
-    stages {
-        stage('Checkout Repository') {
-            steps {
-                checkout scm
-            }
-        }
+//     stages {
+//         stage('Checkout Repository') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
         
-        stage('Set up AWS credentials') {
-            steps {
-                script {
-                    // Create directory if it doesn't exist
-                    sh 'mkdir -p $HOME/.aws'
-                    // Create credentials file
-                    sh 'echo "[default]" > $HOME/.aws/credentials'
-                    sh 'echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials'
-                    sh 'echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials'
-                }
-            }
-        }
+//         stage('Set up AWS credentials') {
+//             steps {
+//                 script {
+//                     // Create directory if it doesn't exist
+//                     sh 'mkdir -p $HOME/.aws'
+//                     // Create credentials file
+//                     sh 'echo "[default]" > $HOME/.aws/credentials'
+//                     sh 'echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials'
+//                     sh 'echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials'
+//                 }
+//             }
+//         }
         
-        stage('Set up Terraform') {
-            steps {
-                script {
-                    sh 'curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -'
-                    sh 'sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"'
-                    sh 'sudo apt-get update && sudo apt-get install terraform=1.1.0 -y'
-                }
-            }
-        }
+//         stage('Set up Terraform') {
+//             steps {
+//                 script {
+//                     sh 'curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -'
+//                     sh 'sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"'
+//                     sh 'sudo apt-get update && sudo apt-get install terraform=1.1.0 -y'
+//                 }
+//             }
+//         }
         
-        stage('Terraform Init') {
-            steps {
-                sh 'terraform init'
-            }
-        }
+//         stage('Terraform Init') {
+//             steps {
+//                 sh 'terraform init'
+//             }
+//         }
         
-        stage('Terraform Plan') {
-            steps {
-                sh 'terraform plan -out=tfplan'
-            }
-        }
+//         stage('Terraform Plan') {
+//             steps {
+//                 sh 'terraform plan -out=tfplan'
+//             }
+//         }
         
-        stage('Terraform Apply') {
-            steps {
-                sh 'terraform apply -auto-approve tfplan'
-            }
-        }
-    }
-}
+//         stage('Terraform Apply') {
+//             steps {
+//                 sh 'terraform apply -auto-approve tfplan'
+//             }
+//         }
+//     }
+// }
