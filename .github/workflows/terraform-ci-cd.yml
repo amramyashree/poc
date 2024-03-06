@@ -40,4 +40,4 @@ jobs:
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        run: terraform apply -replace="aws_instance.example" -auto-approve tfplan
+        run: terraform apply -target="aws_instance.example" -auto-approve tfplan
